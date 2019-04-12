@@ -57,6 +57,7 @@ class User(models.Model, ModelMixin):
 
 
 
+
 class Profile(models.Model, ModelMixin):
     SEX = (
         ('male', '男'),

@@ -42,9 +42,8 @@ def submit_vcode(request):
 
 def get_profile(request):
     """获取个人资料"""
-    uid = request.session.get('uid')
-    user = User.objects.get(id=uid)
-    profile = user.profile
+
+    profile = request.user.profile
 
     return render_json(profile.to_string())
 
@@ -74,10 +73,8 @@ def upload_avatar(request):
     #判断是否是post请求
     if not request.method == "POST":
         return render_json('request method error', errors.REQUEST_ERROR)
-
+    user = request.user
     avatar = request.FILES.get('avatar')
-    uid = request.session.get('uid')
-    user = User.objects.get(id=uid)
 
     logics.upload_avatar.delay(user, avatar)
 
